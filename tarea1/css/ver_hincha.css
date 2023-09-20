@@ -1,0 +1,81 @@
+h1 {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #353535;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 50rem;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+table {
+    color: #000000;
+    border: 1px solid darkblue; 
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #51aeff;
+    color: #fff;
+    border-bottom: 1px solid darkblue; 
+}
+
+th {
+    padding: 2rem 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid #353535; 
+}
+
+tbody tr {
+    cursor: pointer;
+    border-bottom: 1px solid darkblue;
+    display: table-row;
+    margin: 1rem;
+}
+
+tbody tr:hover {
+    background: #ececec;
+}
+
+.center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30rem;
+}
+
+#logo-id {
+    width: 30rem;
+    margin: 0 auto;
+}
+
+.button {
+    background-color: #4bb4f8;
+    border: none;
+    color: white;
+    width: 10rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #357ebd;
+    cursor: pointer;
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Registro Artesano </title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/agregar_artesano.css">
+</head>
+
+<body>
+    <h1>Registro Artesanos</h1>
+
+    <div class="center">
+        <img id="logo-id" src="../imagenes/Santiago_2023.png" alt = "olimpiadas_iamgen">
+    </div>
+
+    <div>        
+        <div class="container">
+            <div id="error" hidden>
+                <h3>Se han encontrado los siguientes errores: </h3>
+                <ul id="lista-errores">
+                
+                </ul>
+            </div>
+
+
+            <form class="formulario" id="form-artesano">
+                <!-- Iniciamos el div para datos personales-->
+                <div id="nombre-input" class="artesano-input">
+                    <h5>Datos personales </h5>
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" class="grupo-input"  name="nombre" type="text" minlength="4" required>
+                    <label for="email">Email:</label>
+                    <input id="email" class="grupo-input"  name="email" type="email" required>
+                    <label for="celular">Celular:</label>
+                    <input id="celular" class="grupo-input"  name="celular" type="tel" required>
+                </div>
+                
+                <!-- Iniciamos el div para la region-->
+                <div id="region-input" class="artesania-input">
+                    <h5> Procedencia </h5>
+                    <label for="region">Región:</label>
+                    <select id="region" name="region" required>
+                        <option value="" selected disabled hidden>Seleccionar región</option>
+                    </select>
+                    <label for="comuna">Comuna:</label>
+                    <select id="comuna" name="comuna" required>
+                        <option value="" selected disabled hidden>Seleccionar comuna</option>
+                    </select>
+                    <script src="../js/regiones_comunas.js"></script>
+                    <script src="../js/logica_regiones.js"></script>
+                </div>
+                
+
+                
+                <!-- Iniciamos el div para las artesanias-->
+                <div id="artesania-input" class="artesania">
+                    <h5> Artesanias que deseas ofrecer: <br>(Debes agregar al menos una)</h5>
+
+                    <div id="comentario-input_1" class="artesania-input">
+                        <label class="label" for="artesania_1">Tipo Artesania 1 <br> </label>
+                        <select id="artesania_1" name="artesania_1" required>
+                            <option value="" selected disabled hidden>Seleccionar tipo artesania</option>
+                        </select>
+                        <label for="artesania_1_img">Imagen de artesania 1 <br> </label>
+                        <input type="file" id="artesania_1_img" class="input-file" name="artesania_1_img" accept="image/png, image/jpeg" required>
+
+                        <label for="comentario_artesania_1">Comentario (opcional)</label>
+                        <textarea id="comentario_artesania_1" class="comentario" name="comentario_artesania_1" rows="4" cols="50" required></textarea>
+                    </div>
+
+                    <div id="comentario-input_2" class="artesania-input">
+                        <label class="label" for="artesania_2">Tipo Artesania 2 <br> </label>
+                        <select id="artesania_2" name="artesania_2" required>
+                            <option value="" selected disabled hidden>Seleccionar tipo artesania</option>
+                        </select>
+                        <label for="artesania_2_img">Imagen de artesania 2 <br> </label>
+                        <input type="file" id="artesania_2_img"  class="input-file" name="artesania_2_img" accept="image/png, image/jpeg" required>
+
+                        <label for="comentario_artesania_2">Comentario (opcional)</label>
+                        <textarea id="comentario_artesania_2" class="comentario" name="comentario_artesania_2" rows="4" cols="50" required></textarea>
+                    </div>
+
+                    <div id="comentario-input_3" class="artesania-input">
+                        <label class="label" for="artesania_3">Tipo Artesania 3 <br> </label>
+                        <select id="artesania_3" name="artesania_3" required>
+                            <option value="" selected disabled hidden>Seleccionar tipo artesania</option>
+                        </select>
+                        <label for="artesania_3_img">Imagen de artesania 3 <br> </label>
+                        <input type="file" id="artesania_3_img" class="input-file" name="artesania_3_img" accept="image/png, image/jpeg" required>
+
+                        <label for="comentario_artesania_3">Comentario (opcional)</label>
+                        <textarea id="comentario_artesania_3" class="comentario" name="comentario_artesania_3" rows="4" cols="50" required></textarea>
+                    </div>
+                    <script src="../js/artesanias.js"></script>
+                    <script src="../js/logica_artesanias.js"></script>
+                </div>
+
+                
+                <!-- Iniciamos el div para el boton de validar datos-->
+                <div id="validacion">
+                    <button type="button" class="boton" id="envio">
+                        Registrar Artesanias
+                    </button>
+                </div>
+
+                <!-- botones de confirmacion inicialmente ocultos -->
+                <div id="confirmacion" hidden >
+                    <h2>Los datos parecen correctos. </h2>
+                    <h3>¿Confirma el registro de este artesano?</h3>
+                    <button type="button" class="boton" id="confirmar">
+                        Sí, confirmo
+                    </button>
+                    <button type="button" class="boton" id="cancelar">
+                        No, quiero volver al formulario
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    <!-- Boton para volver al menu principal -->
+    <button type="button" id="back" class="boton" onclick="location.href='index.html'">Volver al menú principal</button>
+    </div>
+    <script src="../js/validacion_artesano.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Registrar Hincha</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/agregar_hincha.css">
+</head>
+
+<body>
+    <h1>Registro Hinchas</h1>
+
+    <div class="center">
+        <img id="logo-id" src="../imagenes/Santiago_2023.png" alt = "olimpiadas_iamgen">
+    </div>
+
+    <div id="bloque_form">        
+        <div class="container">
+            <div id="error" hidden>
+                <h3>Se han encontrado los siguientes errores: </h3>
+                <ul id="lista-errores">
+                
+                </ul>
+            </div>
+
+
+            <form class="formulario" id="form-hincha">
+                <!-- Iniciamos el div para los deportes de interes-->
+                <div id="deportes-input" class="hincha-input">
+                    <h5> Deportes que te interesa apoyar: <br>(Debes escoger mínimo 1)</h5>
+                    <label for="deporte_1">Deporte de interes 1 <br> </label>
+                    <select id="deporte_1" name="deporte_1" required>
+                        <option value="" selected disabled hidden>Seleccionar deporte</option>
+                    </select>
+                    <label for="deporte_2">Deporte de interes 2</label>
+                    <select id="deporte_2" name="deporte_2">
+                        <option value="" selected disabled hidden>Seleccionar deporte</option>
+                    </select>
+                    <label for="deporte_3">Deporte de interes 3</label>
+                    <select id="deporte_3" name="deporte_3">
+                        <option value="" selected disabled hidden>Seleccionar deporte</option>
+                    </select>
+                    <script src="../js/deportes.js"></script>
+                    <script src="../js/logica_deportes.js"></script>
+                </div>
+
+
+                <!-- Iniciamos el div para la region-->
+                <div id="region-input" class="hincha-input">
+                    <h5> Procedencia </h5>
+                    <label for="region">Región:</label>
+                    <select id="region" name="region" required>
+                        <option value="" selected disabled hidden>Seleccionar región</option>
+                    </select>
+                    <label for="comuna">Comuna:</label>
+                    <select id="comuna" name="comuna" required>
+                        <option value="" selected disabled hidden>Seleccionar comuna</option>
+                    </select>
+                    <script src="../js/regiones_comunas.js"></script>
+                    <script src="../js/logica_regiones.js"></script>
+                </div>
+                
+
+                <!-- Iniciamos el div para datos personales-->
+                <div id="nombre-input" class="hincha-input">
+                    <h5>Datos personales </h5>
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" class="grupo-input"  name="nombre" type="text" minlength="4" required>
+                    <label for="email">Email:</label>
+                    <input id="email" class="grupo-input"  name="email" type="email" required>
+                    <label for="celular">Celular:</label>
+                    <input id="celular" class="grupo-input"  name="celular" type="tel" required>
+                </div>
+
+                <!-- Iniciamos el div para el transporte-->
+                <div id="transporte-input" class="hincha-input">
+                    <h5>Medio de transporte: </h5>
+                    <label for="transporte">Transporte</label>
+                    <select id="transporte" name="transporte" required>
+                        <option value="" selected disabled hidden>Seleccionar transporte</option>
+                        <option value="particular">Particular</option>
+                        <option value="locomocion_publica">Locomoción pública</option>
+                    </select>
+                </div>
+                
+                <!-- Iniciamos el div para el comentario-->
+                <div id="comentario-input" class="hincha-input">
+                    <h5>Comentarios adicionales (opcional): </h5>
+                    <label for="comentario">Comentario</label>
+                    <textarea id="comentario" name="comentario" rows="4" cols="50" required></textarea>
+                </div>
+
+                <!-- Iniciamos el div para el boton de validar datos-->
+                <div class="botones">
+                    <button type="button" class="button" id="envio">
+                        Registrar Hincha
+                    </button>
+                </div>
+                <!-- botones de confirmacion inicialmente ocultos -->
+                <div id="confirmacion" hidden >
+                    <h2>Los datos parecen correctos. </h2>
+                    <h3>¿Confirma el registro de este hincha?</h3>
+                    <button type="button" class="button" id="confirmar">
+                        Sí, confirmo
+                    </button>
+                    <button type="button" class="button" id="cancelar">
+                        No, quiero volver al formulario
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    <!-- Boton para volver al menu principal -->
+    <button type="button" id="back" class="button" onclick="location.href='index.html'">Volver al menú principal</button>
+    </div>
+    <script src="../js/validacion_hincha.js"></script>
+</body>
+</html>
