@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %} Menu Juegos Panamericanos 2023 {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}"> {% endblock %}
+
+{% block title2 %}
+<h1>Menu Principal</h1>
+{% endblock %}
+
+{% block content %}
+<!-- Container Botones -->
+<div class="container">
+    <button type = "button" class="button"onclick="location.href='/agregar_artesano'"> Registrar Artesano</button>
+    <button type = "button" class="button"onclick="location.href='/listado_artesanos'"> Ver listado de Artesanos</button>
+    <button type = "button" class="button"onclick="location.href='/agregar_artesano'"> Registrar Hincha</button>
+    <button type = "button" class="button"onclick="location.href='/listado_artesanos'"> Ver listado de Hinchas</button>
+</div>
+{% endblock %}
+
+</html>

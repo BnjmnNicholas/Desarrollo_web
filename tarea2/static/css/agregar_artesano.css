@@ -1,0 +1,139 @@
+:root {
+  --color-borde: #1c8876;
+
+}
+
+  input {
+  border: 1px solid var(--color-borde);
+  background-color: #fafafa;
+  height: 10px;
+  max-width: 340px;
+  padding: 5px;
+  }
+
+
+  h1,h2,h3,h4 {
+    text-align: center;
+    /* cambiamos la fuente */
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #353535;
+  }
+
+  h5 {
+      text-align: left;
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          color: #353535;
+  }
+
+  label {
+    text-align: left;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #353535;
+
+  }
+
+  .center {
+      text-align: center;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 30rem;
+    }
+  
+  #logo-id {
+      width: 30rem;
+      margin: 0 auto;
+  }
+  
+
+  .container {
+      border: 1px solid var(--color-borde);
+      height: 50%;
+      max-width: 350px;
+      margin: 2% auto;
+      padding: 2rem;
+      padding-top: .5rem;
+      background-color: #ffffff;
+  }
+
+  .formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  }
+
+  
+
+  select{
+      width: 100%;
+      display: block;
+      
+  }
+
+  .grupo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 30rem;
+    border-radius: 3px;
+  }
+  
+
+
+  /* artesania-input */
+  .artesania-input {
+    gap: 3rem;
+    margin-bottom: 1rem;
+    max-width: 24rem;
+    padding-bottom: 1rem;
+  }
+  .artesania-input label {
+    margin-bottom: 1rem;
+  }
+
+
+  .comentario{
+    display: flex;
+    flex-direction: column;
+    height: 2rem;
+    width: 95%;
+  }
+
+  .input-file { 
+    width: 20.5rem;
+    min-height: 2rem;
+  }
+
+
+  
+  #envio, #confirmar, #cancelar {
+    background-color: #4bb4f8;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 20px;
+    padding: 2% 5%;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
+  
+  .boton:hover {
+    background-color: #357ebd; 
+    cursor: pointer; 
+}
+
+  #back {
+    background-color: #4bb4f8;
+    border: none;
+    color: white;
+    width: 10rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+
+
