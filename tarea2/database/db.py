@@ -47,3 +47,13 @@ def get_comunas():
     conn.commit()
     comunas = cursor.fetchall()
     return comunas
+  
+  
+def get_artesanos():
+    conn = getConnection()    
+    sql = "SELECT id, nombre, apellido, email FROM artesano"
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    conn.commit()
+    artesanos = cursor.fetchall()
+    return artesanos

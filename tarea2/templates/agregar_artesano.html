@@ -8,6 +8,12 @@
 
 
 
+<!-- Falta limpiar el html, quitando los campos que no son requeridos para hacer la validacion -->
+
+
+
+
+
 {% block content %}
     <div>        
         <div class="container">
@@ -18,14 +24,14 @@
                 </ul>
             </div>
         
-            <form class="formulario" id="form-artesano">
+            <form class="formulario" id="form-artesano" action="agregar_artesano" method="post" >
                 <!-- Iniciamos el div para datos personales-->
                 <div id="nombre-input" class="artesano-input">
                     <h5>Datos personales </h5>
                     <label for="nombre">Nombre:</label>
                     <input id="nombre" class="grupo-input"  name="nombre" type="text" minlength="4" required>
                     <label for="email">Email:</label>
-                    <input id="email" class="grupo-input"  name="email" type="email" required>
+                    <input id="email" class="grupo-input"  name="email" type="email" optional>
                     <label for="celular">Celular:</label>
                     <input id="celular" class="grupo-input"  name="celular" type="tel" required>
                 </div>
@@ -113,7 +119,7 @@
                 
                 <!-- Iniciamos el div para el boton de validar datos-->
                 <div id="validacion">
-                    <button type="button" class="boton" id="envio">
+                    <button type="submit" class="boton" id="envio">
                         Registrar Artesanias
                     </button>
                 </div>

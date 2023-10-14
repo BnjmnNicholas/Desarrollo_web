@@ -2,7 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from database import db
 import json
 
+UPLOAD_FOLDER = 'static/uploads'
+
 app = Flask(__name__)
+app.secret_key = "s3cr3t_k3y"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 @app.route('/')
 def index():
@@ -12,9 +17,7 @@ def index():
 @app.route('/agregar_artesano', methods=['GET', 'POST'])
 def agregar_artesano():
     
-    
-    if request.method == "GET":
-        
+    if request.method == "GET":    
         # recogemos los tipos de artesanias, regiones y comunas de la bbdd,
         # para mostrarlos en el formulario
         # artesanias = db.get_artesanias()
@@ -49,11 +52,13 @@ def agregar_artesano():
                                regiones_y_comunas=regiones_y_comunas,
                                regiones_y_comunas_json=regiones_y_comunas_json)
         
+
+    
     
     elif request.method == "POST":
         # realizamos la validación por parte del servidor
-        if request.form['nombre'] == '' or request.form['apellido'] == '' or request.form['email'] == '':
-            flash('Por favor, ingrese todos los datos de contacto', 'error')
+        if request.form['nombre'] == '' :
+            flash('Por favor, ingrese nombre', 'error')
             return redirect(url_for('agregar_artesano'))
         else:
             flash('El artesano ha sido registrado correctamente', 'success')
