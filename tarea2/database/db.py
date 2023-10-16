@@ -48,12 +48,105 @@ def get_comunas():
     comunas = cursor.fetchall()
     return comunas
   
+
+  
   
 def get_artesanos():
     conn = getConnection()    
-    sql = "SELECT id, nombre, apellido, email FROM artesano"
+    sql = "SELECT nombre, celular, comuna_id FROM artesano"
     cursor = conn.cursor()
     cursor.execute(sql)
     conn.commit()
     artesanos = cursor.fetchall()
     return artesanos
+  
+def get_comuna_id(comuna):
+    conn = getConnection()    
+    sql = "SELECT id FROM comuna WHERE nombre=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (comuna,))
+    conn.commit()
+    comuna_id = cursor.fetchone()
+    return comuna_id  
+  
+def get_last_id_artesanos():
+    conn = getConnection()
+    sql = "SELECT id FROM artesano ORDER BY id DESC LIMIT 1"
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    conn.commit()
+    last_id = cursor.fetchone()
+    return last_id
+  
+def get_id_artesania(artesania):
+    conn = getConnection()
+    sql = "SELECT id FROM tipo_artesania WHERE nombre=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (artesania,))
+    conn.commit()
+    id_artesania = cursor.fetchone()
+    return id_artesania
+  
+def get_comuna_nombre(comuna_id):
+    conn = getConnection()
+    sql = "SELECT nombre FROM comuna WHERE id=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (comuna_id,))
+    conn.commit()
+    comuna_nombre = cursor.fetchone()
+    return comuna_nombre  
+  
+  
+  
+def insert_artesano_tipo(artesano_id, tipo_artesania_id):
+  """
+  Inserta un registro en la tabla artesano_tipo. La tabla posee columnas artesano_id(int)
+  y tipo_artesania_id(int).
+  """
+  conn = getConnection()
+  sql = "INSERT INTO artesano_tipo (artesano_id, tipo_artesania_id) VALUES (%s, %s)"
+  cursor = conn.cursor()
+  cursor.execute(sql, (artesano_id, tipo_artesania_id))
+  conn.commit()
+  conn.close()
+
+def insert_artesano(id, comuna_id, descripcion_artesania, nombre, email, celular):
+  """
+  Inserta un registro en la tabla artesano. La tabla posee columnas id(int), comuna_id(int), 
+  descripcion_artesania(varchar), nombre(varchar), email(varchar), celular(varchar).
+  """
+  conn = getConnection()
+  sql = "INSERT INTO artesano (id, comuna_id, descripcion_artesania, nombre, email, celular) VALUES (%s, %s, %s, %s, %s, %s)"
+  cursor = conn.cursor()
+  cursor.execute(sql, (id, comuna_id, descripcion_artesania, nombre, email, celular))
+  conn.commit()
+  conn.close()
+  
+def insert_img(id, ruta_archivo, nombre_archivo, artesano_id):
+  """
+  Inserta un registro en la tabla img. La tabla posee columnas id(int), ruta_archivo(varchar), 
+  nombre_archivo(varchar), artesano_id(int).
+  """
+  conn = getConnection()
+  sql = "INSERT INTO img (id, ruta_archivo, nombre_archivo, artesano_id) VALUES (%s, %s, %s, %s)"
+  cursor = conn.cursor()
+  cursor.execute(sql, (id, ruta_archivo, nombre_archivo, artesano_id))
+  conn.commit()
+  conn.close()
+  
+
+def create_register_without_image(id_artesano,
+                                  nombre,
+                                  email,
+                                  celular,
+                                  descripcion_artesania,
+                                  comuna_id,
+                                  tipo_artesania_id):
+  
+  # llamamos a la función insert_artesano para insertar un registro en la tabla artesano
+  insert_artesano(id_artesano, comuna_id, descripcion_artesania, nombre, email, celular)
+  
+  # llamamos a la función insert_artesano_tipo para insertar un registro en la tabla artesano_tipo
+  insert_artesano_tipo(id_artesano, tipo_artesania_id)
+  
+  

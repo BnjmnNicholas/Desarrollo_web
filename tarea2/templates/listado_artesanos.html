@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <title>Artesanos registrados</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css/ver_artesano.css">
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %} Artesanos registrados {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ver_artesano.css') }}"> {% endblock %}
 
-    <h1>Artesanos registrados</h1>
+{% block title2 %}
+<h1>Artesanos registrados</h1>
+{% endblock %}
 
-    <div class="center">
-        <img id="logo-id" src="../imagenes/Santiago_2023.png" alt="olimpiadas_imagen">
-    </div>
+{% block content %}
 
     <div class="container">
-        <!-- Tabla de hinchas -->
+        <!-- creamos la tabla con los registros de la lista_artesanos -->
+        {% if artesanos %}
         <table id="tabla-artesanos">
             <thead>
                 <tr>
@@ -26,60 +22,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr >
-                    <td>Juanito Perez</td>
-                    <td>+56983464528</td>
-                    <td>Providencia</td>
-                    <td>Ceramica, Marmol, Madera</td>
-                    <td><img src="../imagenes/Santiago_2023.png" alt="imagen1">
-                    <img src="../imagenes/Santiago_2023.png" alt="imagen2">
-                    <img src="../imagenes/Santiago_2023.png" alt="imagen3">
-                    </td>
-                </tr>
+                {% for artesano in artesanos %}
                 <tr>
-                    <td>María González</td>
-                    <td>+56983465528</td>
-                    <td>Providencia</td>
-                    <td>Mimbre, Marmol, Madera</td>
-                    <td><img src="../imagenes/Santiago_2023.png" alt="imagen1">
-                    <img src="../imagenes/Santiago_2023.png" alt="imagen2">
-                    <img src="../imagenes/Santiago_2023.png" alt="imagen3">
+                    <td>{{ artesano[0] }}</td>
+                    <td>{{ artesano[1] }}</td>
+                    <td>{{ artesano[2] }}</td>
+                    <td>{{ artesano[3] }}</td>
+                    <td>
+                        <!-- {% for foto in artesano[4] %}
+                        <img src="{{ url_for('static', filename='imagenes/' + foto) }}" alt="imagen1">
+                        {% endfor %} -->
                     </td>
                 </tr>
-                <tr>
-                    <td>Carlos Pérez</td>
-                    <td>+56913464528</td>
-                    <td>Maipu</td>
-                    <td>Metal, Marmol, Madera</td>
-                    <td><img src="../imagenes/Santiago_2023.png" alt="imagen1">
-                    <img src="../imagenes/Santiago_2023.png" alt="imagen2">
-                    <img src="../imagenes/Santiago_2023.png" alt="imagen3">
-                    </td>
-                </tr>
-                <tr>
-                    <td>María Pérez</td>
-                    <td>+56983464521</td>
-                    <td>Providencia</td>
-                    <td>Ceramica, Cuero</td>
-                    <td><img src="../imagenes/Santiago_2023.png" alt="imagen1">
-                    <img src="../imagenes/Santiago_2023.png" alt="imagen2">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Julian Alvarez</td>
-                    <td>+56933464522</td>
-                    <td>Maipu</td>
-                    <td>Madera</td>
-                    <td><img src="../imagenes/Santiago_2023.png" alt="imagen1">
-                    </td>
-                </tr>
-
+                {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <h2>No hay artesanos registrados</h2>
+        {% endif %}
+
     </div>
-    
-    <!-- Boton para volver al menu principal -->
-    <button type="button" class="button" onclick="location.href='index.html'">Volver al menú principal</button>
-    <script src="../js/ver_artesanos.js"></script>
-</body>
-</html>
+
+    <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
+{% endblock %}

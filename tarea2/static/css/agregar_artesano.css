@@ -3,6 +3,10 @@
 
 }
 
+/* agregar_artesano.css */
+
+
+
   input {
   border: 1px solid var(--color-borde);
   background-color: #fafafa;
@@ -124,16 +128,21 @@
     cursor: pointer; 
 }
 
-  #back {
-    background-color: #4bb4f8;
-    border: none;
-    color: white;
-    width: 10rem;
-    border-radius: 8px;
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 16px;
+
+.button {
+  background-color: #4bb4f8;
+  border: none;
+  color: white;
+  width: 10rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 
+.button:hover {
+  background-color: #357ebd; 
+  cursor: pointer; 
+}
 
 

@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from database import db
 import json
+from validations import validador_nombre, validador_mail, validador_celular, validador_region, validador_comuna, validador_artesanias, validador_imagen
+import re
+
 
 UPLOAD_FOLDER = 'static/uploads'
 
@@ -14,8 +17,13 @@ def index():
     return render_template('index.html')
 
 
+
+
+# ------------------------------------------------------------------------------------------
 @app.route('/agregar_artesano', methods=['GET', 'POST'])
 def agregar_artesano():
+    
+    error = None
     
     if request.method == "GET":    
         # recogemos los tipos de artesanias, regiones y comunas de la bbdd,
@@ -47,25 +55,59 @@ def agregar_artesano():
         regiones_y_comunas_json = json.dumps(regiones_y_comunas)
 
         
-        return render_template('agregar_artesano.html',
+        return render_template('agregar_artesano sinJs.html',
                                artesanias=lista_artesanias,
                                regiones_y_comunas=regiones_y_comunas,
                                regiones_y_comunas_json=regiones_y_comunas_json)
         
-
-    
-    
     elif request.method == "POST":
         # realizamos la validación por parte del servidor
-        if request.form['nombre'] == '' :
-            flash('Por favor, ingrese nombre', 'error')
-            return redirect(url_for('agregar_artesano'))
+
+        # obtenemos los inputs del formulario
+        nombre = request.form['nombre']
+        mail = request.form['email']
+        celular = request.form['celular']
+        region = request.form.get('region')
+        comuna = request.form.get('comuna')
+        artesania_1 = request.form.get('artesania_1')
+        artesania_2 = request.form.get('artesania_2')
+        artesania_3 = request.form.get('artesania_3')
+        com_artesania_1 = request.form['comentario_artesania_1']
+        com_artesania_2 = request.form['comentario_artesania_2']
+        com_artesania_3 = request.form['comentario_artesania_3']     
+        
+        errors = {
+                    "nombre": 'Por favor, ingrese un nombre válido',
+                    "email": 'Por favor, ingrese un correo electrónico válido',
+                    "celular": 'Por favor, ingrese un número de celular válido',
+                    "region": 'Por favor, seleccione una región',
+                    "comuna": 'Por favor, seleccione una comuna',
+                    "artesanias": 'Por favor, seleccione al menos una artesanía',
+                    "imagen": 'Por favor, ingrese una imagen válida'
+                }
+                
+        if not validador_nombre(nombre):
+            flash(errors["nombre"], 'error')
+        elif not validador_mail(mail):
+            flash(errors["email"], 'error')
+        elif not validador_celular(celular):
+            flash(errors["celular"], 'error')
+        elif not validador_region(region):
+            flash(errors["region"], 'error')
+        elif not validador_comuna(comuna):
+            flash(errors["comuna"], 'error')
+        elif not validador_artesanias(artesania_1, artesania_2, artesania_3):
+            flash(errors["artesanias"], 'error')
+        elif not validador_imagen(request.form['imagen']):
+            flash(errors["imagen"], 'error')
         else:
             flash('El artesano ha sido registrado correctamente', 'success')
             return redirect(url_for('index'))
         
+        return redirect(url_for('agregar_artesano'))
+        
     
-    
+
     
 @app.route('/listado_artesanos')
 def listado_artesanos():

@@ -1,17 +1,14 @@
 {% extends 'base.html' %}
-{% block title %} Registro Artesano {% endblock %}
+{% block title %} Registro Artesanos {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/agregar_artesano.css') }}"> {% endblock %}
 
 {% block title2 %}
-<h1>Registro Artesanos</h1>
+<h1>Registro Artesanoss</h1>
 {% endblock %}
 
 
 
 <!-- Falta limpiar el html, quitando los campos que no son requeridos para hacer la validacion -->
-
-
-
 
 
 {% block content %}
@@ -22,30 +19,38 @@
                 <ul id="lista-errores">
                 </ul>
             </div>
-        
+            {% if messages %}
+            <div id="error" >
+                <h3>Se han encontrado los siguientes errores: </h3>
+
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}         
+            </div>
+            {% endif %}
             <form class="formulario" id="form-artesano" action="agregar_artesano" method="post" >
                 <!-- Iniciamos el div para datos personales-->
                 <div id="nombre-input" class="artesano-input">
                     <h5>Datos personales </h5>
                     <label for="nombre">Nombre:</label>
-                    <input id="nombre" class="grupo-input"  name="nombre" type="text" minlength="4" required>
+                    <input id="nombre" class="grupo-input"  name="nombre" type="text" minlength="4" optional>
                     <label for="email">Email:</label>
-                    <input id="email" class="grupo-input"  name="email" type="email" required>
+                    <input id="email" class="grupo-input"  name="email" type="email" optional>
                     <label for="celular">Celular:</label>
-                    <input id="celular" class="grupo-input"  name="celular" type="tel" required>
+                    <input id="celular" class="grupo-input"  name="celular" type="tel" optional>
                 </div>
                 
                 <!-- Iniciamos el div para la region-->                
                 <div>
                     <label for="region">Región:</label>
-                    <select id="region" name="region" required>
+                    <select id="region" name="region" optional>
                         <option value="" disabled selected>Seleccionar región</option>
                         {% for region, comunas in regiones_y_comunas.items() %}
                         <option value="{{ region }}">{{ region }}</option>
                         {% endfor %}
                     </select>
                     <label for="comuna">Comuna:</label>
-                    <select id="comuna" name="comuna" required>
+                    <select id="comuna" name="comuna" optional>
                         <option value="" selected disabled hidden>Seleccionar comuna</option>
                     </select>
                     <!-- <script lang="javascript" src="{{ url_for('static', filename='js/logica_regiones.js') }}"></script>
@@ -114,7 +119,7 @@
                 
                 <!-- Iniciamos el div para el boton de validar datos-->
                 <div id="validacion">
-                    <button type="button" class="boton" id="envio">
+                    <button type="submit" class="boton" id="envio">
                         Registrar Artesanias
                     </button>
                 </div>
@@ -134,14 +139,11 @@
         </div>
         
         <!-- Boton para volver al menu principal -->
-        <button type="button" id="back" class="boton" onclick="location.href='/'">Volver al menú principal</button>
+        <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
     </div>
 {% endblock %}
 
 
-{% block javascript %}
-<script lang="javascript" src="{{ url_for('static', filename='js/validacion_artesano.js') }}"></script>
-{% endblock %}
 
 </body>
 </html>

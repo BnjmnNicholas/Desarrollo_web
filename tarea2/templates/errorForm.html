@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Registro Artesano {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/agregar_artesano.css') }}"> {% endblock %}
+
+{% block title2 %}
+<h1>Tú registro ha fallado</h1>
+{% endblock %}
+
+
+
+<!-- Falta limpiar el html, quitando los campos que no son requeridos para hacer la validacion -->
+
+
+<h2>Lista de errores: </h2>
+
+{% if error %}
+<p class=error><strong>Error:</strong> {{ error }}
+{% endif %}
