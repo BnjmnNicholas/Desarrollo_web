@@ -28,7 +28,7 @@
                     {% endfor %}         
             </div>
             {% endif %}
-            <form class="formulario" id="form-artesano" action="agregar_artesano" method="post" >
+            <form class="formulario" id="form-artesano" action="agregar_artesano" method="post" enctype="multipart/form-data" >
                 <!-- Iniciamos el div para datos personales-->
                 <div id="nombre-input" class="artesano-input">
                     <h5>Datos personales </h5>
@@ -77,7 +77,7 @@
                             {% endfor %}
                         </select>
                         <label for="artesania_1_img">Imagen de artesania 1 <br> </label>
-                        <input type="file" id="artesania_1_img" class="input-file" name="artesania_1_img" accept="image/png, image/jpeg" optional>
+                        <input type="file" id="artesania_1_img" class="input-file" name="artesania_1_img"optional>
                         
                         <label for="comentario_artesania_1">Comentario (opcional)</label>
                         <textarea id="comentario_artesania_1" class="comentario" name="comentario_artesania_1" rows="4" cols="50" optional></textarea>
@@ -119,14 +119,13 @@
                 
                 <!-- Iniciamos el div para el boton de validar datos-->
                 <div id="validacion">
-                    <button type="submit" class="boton" id="envio">
+                    <button type="button" class="boton" id="envio">
                         Registrar Artesanias
                     </button>
                 </div>
 
                 <!-- botones de confirmacion inicialmente ocultos -->
                 <div id="confirmacion" hidden >
-                    <h2>Los datos parecen correctos. </h2>
                     <h3>¿Confirma el registro de este artesano?</h3>
                     <button type="submit" class="boton" id="confirmar">
                         Sí, confirmo
@@ -143,6 +142,9 @@
     </div>
 {% endblock %}
 
+{% block javascript %}
+<script lang="javascript" src="{{ url_for('static', filename='js/validacion_artesano.js') }}"></script>
+{% endblock %}
 
 
 </body>

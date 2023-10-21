@@ -10,7 +10,7 @@
 
     <div class="container">
         <!-- creamos la tabla con los registros de la lista_artesanos -->
-        {% if artesanos %}
+        {% if artesanos_data %}
         <table id="tabla-artesanos">
             <thead>
                 <tr>
@@ -22,16 +22,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% for artesano in artesanos %}
+                {% for artesano_id, artesano in artesanos_data.items() %}
                 <tr>
-                    <td>{{ artesano[0] }}</td>
-                    <td>{{ artesano[1] }}</td>
-                    <td>{{ artesano[2] }}</td>
-                    <td>{{ artesano[3] }}</td>
+                    <td>{{ artesano['nombre'] }}</td>
+                    <td>{{ artesano['celular'] }}</td>
+                    <td>{{ artesano['comuna'] }}</td>
                     <td>
-                        <!-- {% for foto in artesano[4] %}
-                        <img src="{{ url_for('static', filename='imagenes/' + foto) }}" alt="imagen1">
-                        {% endfor %} -->
+                        {% for artesania in artesano['lista_artesanias'] %}
+                            {{ artesania }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for foto in artesano['lista_rutas_fotos'] %}
+                            <img src="{{ foto }}" ><br>
+                        {% endfor %}
                     </td>
                 </tr>
                 {% endfor %}

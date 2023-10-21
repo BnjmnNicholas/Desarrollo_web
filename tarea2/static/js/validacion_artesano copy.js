@@ -1,4 +1,4 @@
-/* // validacion formulario
+// validacion formulario
 const validarForm = () => {
 
     // funciones auxiliares para validar
@@ -198,17 +198,13 @@ const validarForm = () => {
     };
 };
 
- */
+
   
 // recuperamos el boton que valida el formulario
 let submitBtn = document.getElementById("envio");
-let confirmacion = document.getElementById("confirmacion");
+submitBtn.addEventListener("click", validarForm);
 
-submitBtn.addEventListener("click", () => {
-    // ocultamos el div de confirmacion
-    confirmacion.style.display = "block";
-}
-);
+
 
 // esta seccion se despliega cuando el formulario es valido
         
@@ -216,6 +212,8 @@ let confirmoBtn = document.getElementById("confirmar");
 let noquieroBtn = document.getElementById("cancelar");
 
 confirmoBtn.addEventListener("click", () => {
+    window.location.href = "index.html";
+    alert("Hemos recibido el registro del Artesano. Muchas gracias.")
 }
 );
 

@@ -1,4 +1,7 @@
 import re
+import filetype
+import hashlib
+from werkzeug.utils import secure_filename
 # ------------------------------------------------------------------------------------------
                                         # FN Aux Val
 
@@ -91,15 +94,32 @@ def validador_celular(celular):
     """
     return len(celular) == 0 or re.match(r'^(\+)?(\d{9,11})$', celular) is not None
 
+
 def validador_imagen(imagen):
-    """
-    Valida si una ruta de imagen dada es de un formato de imagen permitido.
+    ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
+    ALLOWED_MIMETYPES = {"image/jpeg", "image/png", "image/gif"}
 
-    Args:
-        imagen (str): La ruta de la imagen a ser validada.
+    # check if a file was submitted
+    if imagen is None:
+        return False
 
-    Returns:
-        bool: True si la imagen tiene una extensión de archivo válida, de lo contrario False.
-    """
-    return imagen and (".jpg" in imagen or ".png" in imagen or ".jpeg" in imagen)
+    # check if the browser submitted an empty file
+    if imagen.filename == "":
+        return False
+    
+    # check file extension
+    ftype_guess = filetype.guess(imagen)
+    if ftype_guess.extension not in ALLOWED_EXTENSIONS:
+        return False
+    # check mimetype
+    if ftype_guess.mime not in ALLOWED_MIMETYPES:
+        return False
+    return True
 
+
+def new_name(img, filename, id):
+    secure_name = secure_filename(filename)
+    hashed_name = str(id) + '_' + hashlib.sha256(secure_name.encode("utf-8")).hexdigest()
+    _extension = filetype.guess(img).extension
+    img_filename = f"{hashed_name}.{_extension}"
+    return img_filename

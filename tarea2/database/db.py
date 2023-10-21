@@ -53,7 +53,7 @@ def get_comunas():
   
 def get_artesanos():
     conn = getConnection()    
-    sql = "SELECT nombre, celular, comuna_id FROM artesano"
+    sql = "SELECT id, nombre, celular, comuna_id FROM artesano"
     cursor = conn.cursor()
     cursor.execute(sql)
     conn.commit()
@@ -86,6 +86,43 @@ def get_id_artesania(artesania):
     conn.commit()
     id_artesania = cursor.fetchone()
     return id_artesania
+  
+def get_id_foto():
+    conn = getConnection()
+    sql = "SELECT id FROM foto ORDER BY id DESC LIMIT 1"
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    conn.commit()
+    id_foto = cursor.fetchone()
+    return id_foto
+  
+def get_fotos(id_artesano):
+    conn = getConnection()
+    sql = "SELECT ruta_archivo FROM foto WHERE artesano_id=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (id_artesano,))
+    conn.commit()
+    fotos = cursor.fetchall()
+    return fotos
+  
+def get_artesanias_artesano(id_artesano):
+    conn = getConnection()
+    sql = "SELECT tipo_artesania_id FROM artesano_tipo WHERE artesano_id=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (id_artesano,))
+    conn.commit()
+    artesanias_artesano = cursor.fetchall()
+    return artesanias_artesano
+  
+def get_artesania_nombre(id_artesania):
+    conn = getConnection()
+    sql = "SELECT nombre FROM tipo_artesania WHERE id=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (id_artesania,))
+    conn.commit()
+    artesania_nombre = cursor.fetchone()
+    return artesania_nombre
+  
   
 def get_comuna_nombre(comuna_id):
     conn = getConnection()
@@ -122,13 +159,13 @@ def insert_artesano(id, comuna_id, descripcion_artesania, nombre, email, celular
   conn.commit()
   conn.close()
   
-def insert_img(id, ruta_archivo, nombre_archivo, artesano_id):
+def insert_foto(id, ruta_archivo, nombre_archivo, artesano_id):
   """
   Inserta un registro en la tabla img. La tabla posee columnas id(int), ruta_archivo(varchar), 
   nombre_archivo(varchar), artesano_id(int).
   """
   conn = getConnection()
-  sql = "INSERT INTO img (id, ruta_archivo, nombre_archivo, artesano_id) VALUES (%s, %s, %s, %s)"
+  sql = "INSERT INTO foto (id, ruta_archivo, nombre_archivo, artesano_id) VALUES (%s, %s, %s, %s)"
   cursor = conn.cursor()
   cursor.execute(sql, (id, ruta_archivo, nombre_archivo, artesano_id))
   conn.commit()
