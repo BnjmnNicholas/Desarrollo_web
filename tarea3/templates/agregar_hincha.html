@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block title %} Registro Artesanos {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/agregar_artesano.css') }}"> {% endblock %}
+
+{% block title2 %}
+<h1>Registro Hinchas</h1>
+{% endblock %}
+
+
+
+<!-- Falta limpiar el html, quitando los campos que no son requeridos para hacer la validacion -->
+
+
+{% block content %}
+<div>        
+    <div class="container">
+        {% if messages %}
+        <div id="error" >
+            <h3>Se han encontrado los siguientes errores: </h3>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}         
+        </div>
+        {% endif %}
+
+        <form class="formulario" id="form-hincha" action="agregar_hincha" method="post" enctype="multipart/form-data" >
+            <!-- Iniciamos el div para datos personales-->
+            <div id="nombre-input" class="hincha-input">
+                <h5>Datos personales </h5>
+                <label for="nombre">Nombre:</label>
+                <input id="nombre" class="grupo-input"  name="nombre" type="text" minlength="4" maxlength="80">
+                <label for="email">Email:</label>
+                <input id="email" class="grupo-input"  name="email" type="email" maxlength="30">
+                <label for="celular">Celular:</label>
+                <input id="celular" class="grupo-input"  name="celular" type="tel" maxlength="15">
+            </div>
+            
+            <!-- Iniciamos el div para la region-->                
+            <div>
+                <label for="region">Región:</label>
+                <select id="region" name="region" >
+                    <option value="" disabled selected>Seleccionar región</option>
+                    {% for region, comunas in regiones_y_comunas.items() %}
+                    <option value="{{ region }}">{{ region }}</option>
+                    {% endfor %}
+                </select>
+                <label for="comuna">Comuna:</label>
+                <select id="comuna" name="comuna" >
+                    <option value="" selected disabled hidden>Seleccionar comuna</option>
+                </select>
+                
+                 <script>
+                    let regiones_y_comunas = JSON.parse('{{ regiones_y_comunas | tojson | safe}}');
+                </script>
+                
+                <script src="{{ url_for('static', filename='js/logica_regiones.js') }}"></script>
+            </div>
+
+            
+            <!-- Iniciamos el div para el transporte-->
+            <div id="transporte-input" class="hincha-input">
+                <h5>Medio de transporte: </h5>
+                <label for="transporte">Transporte</label>
+                <select id="transporte" name="transporte">
+                    <option value="" selected disabled hidden>Seleccionar transporte</option>
+                    <option value="particular">particular</option>
+                    <option value="locomocion_publica">locomoción pública</option>
+                </select>
+            </div>
+
+
+
+            <!-- Iniciamos el div para los deportes de interes-->
+            <!-- Iniciamos el div para los deportes de interes-->
+            <div id="deportes-input" class="hincha-input">
+                <h5> Deportes que te interesa apoyar: <br>(Debes escoger al menos 1)</h5>
+
+                <label for="deporte_1">Deporte de interes 1 <br> </label>
+                <select id="deporte_1" name="deporte_1">
+                    <option value="" selected disabled hidden>Seleccionar deporte</option>
+                    {% for deporte in deportes %}
+                    <option value="{{ deporte }}">{{ deporte }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="deporte_2">Deporte de interes 2</label>
+                <select id="deporte_2" name="deporte_2">
+                    <option value="" selected disabled hidden>Seleccionar deporte</option>
+                    {% for deporte in deportes %}
+                    <option value="{{ deporte }}">{{ deporte }}</option>
+                    {% endfor %}
+
+                </select>
+
+                <label for="deporte_3">Deporte de interes 3</label>
+                <select id="deporte_3" name="deporte_3">
+                    <option value="" selected disabled hidden>Seleccionar deporte</option>
+                    {% for deporte in deportes %}
+                    <option value="{{ deporte }}">{{ deporte }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <!-- Iniciamos el div para los comentarios-->
+            <div id="comentario-input" class="hincha-input">
+                <h5>Comentarios adicionales (opcional)</h5>
+                <textarea id="comentario" class="comentario" name="comentario" rows="4" cols="50" maxlength="80"></textarea>
+            </div>
+            
+
+            
+            <!-- Iniciamos el div para el boton de validar datos-->
+            <div id="validacion">
+                <button type="button" class="boton" id="envio">
+                    Registrar Artesanias
+                </button>
+            </div>
+
+            <!-- botones de confirmacion inicialmente ocultos -->
+            <div id="confirmacion" hidden >
+                <h3>¿Confirma el registro de este artesano?</h3>
+                <button type="submit" class="boton" id="confirmar">
+                    Sí, confirmo
+                </button>
+                <button type="button" class="boton" id="cancelar">
+                    No, quiero volver al formulario
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Boton para volver al menu principal -->
+    <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/validacion_hincha.js') }}"></script>
+{% endblock %}
+

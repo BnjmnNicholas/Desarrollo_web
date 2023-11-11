@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" >
+    <title>{% block title %}{% endblock %}</title>
+    {% block css %}{% endblock %}
+  </head>
+    {% block title2 %}{% endblock %}
+    <!--Imagen paramericanos  -->
+    <div class="center">
+    <img id="logo-id" src="{{ url_for('static', filename='img/Santiago_2023.png') }}" alt = "olimpiadas_iamgen">
+    </div>
+    {% block content %}{% endblock %}
+    {% block javascript %}{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %} Artesanos registrados {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ver_artesano.css') }}"> {% endblock %}
+
+{% block title2 %}
+<h1>Artesanos registrados</h1>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <!-- creamos la tabla con los registros de la lista_artesanos -->
+        {% if artesanos_data %}
+        <table id="tabla-artesanos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Comuna</th>
+                    <th>Tipo Artesanías</th>
+                    <th>Fotos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for artesano_id, artesano in artesanos_data.items() %}
+                <tr data-id="{{ artesano['id'] }}">
+                    <td>{{ artesano['id'] }}</td>
+                    <td>{{ artesano['nombre'] }}</td>
+                    <td>{{ artesano['celular'] }}</td>
+                    <td>{{ artesano['comuna'] }}</td>
+                    <td>
+                        {% for artesania in artesano['lista_artesanias'] %}
+                            {{ artesania }}<br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for foto in artesano['lista_rutas_fotos'] %}
+                            <img src="{{ foto }}" ><br>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <h2>No hay artesanos registrados</h2>
+        {% endif %}
+
+    </div>
+
+    <div class="pagination">
+        {% if len_data > 0 %}
+        {% for page_num in range(1, (len_data // 5) + 2) %}
+        <a href="{{ url_for('listado_artesanos', page=page_num) }}">{{ page_num }}</a>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
+
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/lista_artesanos.js') }}"></script>
+{% endblock %}
+{% endblock %}

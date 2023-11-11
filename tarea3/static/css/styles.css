@@ -1,0 +1,54 @@
+  h1,h2,h3,h4 {
+    text-align: center;
+    /* cambiamos la fuente */
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #353535;
+  }
+  
+
+  .container {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+    .center {
+        text-align: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 30rem;
+    }
+
+    #logo-id {
+        width: 30rem;
+        margin: 0 auto;
+    }
+
+    .button {
+        background-color: #4bb4f8;
+        border: none;
+        color: white;
+        width: 25rem;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        display: block; 
+        margin-bottom: 10px; 
+        font-size: 16px;
+    }
+    
+    .button:hover {
+        background-color: #357ebd; 
+        cursor: pointer; 
+    }
+
+    #notificación {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }

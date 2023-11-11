@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% block title %} Registro Artesanos {% endblock %}
+{% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/agregar_artesano.css') }}"> {% endblock %}
+
+{% block title2 %}
+<h1>Registro Artesanos</h1>
+{% endblock %}
+
+
+
+<!-- Falta limpiar el html, quitando los campos que no son requeridos para hacer la validacion -->
+
+
+{% block content %}
+    <div>        
+        <div class="container">
+            <div id="error" hidden>
+                <h3>Se han encontrado los siguientes errores: </h3>
+                <ul id="lista-errores">
+                </ul>
+            </div>
+            {% if messages %}
+            <div id="error" >
+                <h3>Se han encontrado los siguientes errores: </h3>
+
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}         
+            </div>
+            {% endif %}
+            <form class="formulario" id="form-artesano" action="agregar_artesano" method="post" enctype="multipart/form-data" >
+                <!-- Iniciamos el div para datos personales-->
+                <div id="nombre-input" class="artesano-input">
+                    <h5>Datos personales </h5>
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" class="grupo-input"  name="nombre" type="text" minlength="4" maxlength="80">
+                    <label for="email">Email:</label>
+                    <input id="email" class="grupo-input"  name="email" type="email" maxlength="30">
+                    <label for="celular">Celular:</label>
+                    <input id="celular" class="grupo-input"  name="celular" type="tel" maxlength="15">
+                </div>
+                
+                <!-- Iniciamos el div para la region-->                
+                <div>
+                    <label for="region">Región:</label>
+                    <select id="region" name="region" >
+                        <option value="" disabled selected>Seleccionar región</option>
+                        {% for region, comunas in regiones_y_comunas.items() %}
+                        <option value="{{ region }}">{{ region }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="comuna">Comuna:</label>
+                    <select id="comuna" name="comuna" >
+                        <option value="" selected disabled hidden>Seleccionar comuna</option>
+                    </select>
+                    
+                     <script>
+                        let regiones_y_comunas = JSON.parse('{{ regiones_y_comunas | tojson | safe}}');
+                    </script>
+                    
+                    <script src="{{ url_for('static', filename='js/logica_regiones.js') }}"></script>
+                </div>
+
+                
+                <!-- Iniciamos el div para las artesanias-->
+                <div id="artesania-input" class="artesania">
+                    <h5> Artesanias que deseas ofrecer: <br>(Debes agregar al menos una)</h5>
+
+                    <div id="comentario-input_1" class="artesania-input">
+                        <label class="label" for="artesania_1">Tipo Artesania 1 <br> </label>
+                        <select id="artesania_1" name="artesania_1" >
+                            <option value="" disabled selected>Seleccionar artesanía</option>
+                            {% for artesania in artesanias %}
+                            <!-- agregamos las opciones de la lista_artesanias -->
+                            <option value="{{artesania}}">{{artesania}} </option>
+                            {% endfor %}
+                        </select>
+                        <label for="artesania_1_img">Imagen de artesania 1 <br> </label>
+                        <input type="file" id="artesania_1_img" class="input-file" name="artesania_1_img">
+                        
+                        <label for="comentario_artesania_1">Comentario (opcional)</label>
+                        <textarea id="comentario_artesania_1" class="comentario" name="comentario_artesania_1" rows="4" cols="50" ></textarea>
+                    </div>
+                    
+                    <div id="comentario-input_2" class="artesania-input">
+                        <label class="label" for="artesania_2">Tipo Artesania 2 <br> </label>
+                        <select id="artesania_2" name="artesania_2" >
+                            <option value="" disabled selected>Seleccionar artesanía</option>
+                            {% for artesania in artesanias %}
+                            <!-- agregamos las opciones de la lista_artesanias -->
+                            <option value="{{artesania}}">{{artesania}} </option>
+                            {% endfor %}
+                        </select>
+                        <label for="artesania_2_img">Imagen de artesania 2 <br> </label>
+                        <input type="file" id="artesania_2_img"  class="input-file" name="artesania_2_img" accept="image/png, image/jpeg" >
+                        
+                        <label for="comentario_artesania_2">Comentario (opcional)</label>
+                        <textarea id="comentario_artesania_2" class="comentario" name="comentario_artesania_2" rows="4" cols="50" ></textarea>
+                    </div>
+                    
+                    <div id="comentario-input_3" class="artesania-input">
+                        <label class="label" for="artesania_3">Tipo Artesania 3 <br> </label>
+                        <select id="artesania_3" name="artesania_3" >
+                            <option value="" disabled selected>Seleccionar artesanía</option>
+                            {% for artesania in artesanias %}
+                            <!-- agregamos las opciones de la lista_artesanias -->
+                            <option value="{{artesania}}">{{artesania}} </option>
+                            {% endfor %}
+                        </select>
+                        <label for="artesania_3_img">Imagen de artesania 3 <br> </label>
+                        <input type="file" id="artesania_3_img" class="input-file" name="artesania_3_img" accept="image/png, image/jpeg" >
+                        
+                        <label for="comentario_artesania_3">Comentario (opcional)</label>
+                        <textarea id="comentario_artesania_3" class="comentario" name="comentario_artesania_3" rows="4" cols="50" ></textarea>
+                    </div>
+                </div>
+
+                
+                <!-- Iniciamos el div para el boton de validar datos-->
+                <div id="validacion">
+                    <button type="button" class="boton" id="envio">
+                        Registrar Artesanias
+                    </button>
+                </div>
+
+                <!-- botones de confirmacion inicialmente ocultos -->
+                <div id="confirmacion" hidden >
+                    <h3>¿Confirma el registro de este artesano?</h3>
+                    <button type="submit" class="boton" id="confirmar">
+                        Sí, confirmo
+                    </button>
+                    <button type="button" class="boton" id="cancelar">
+                        No, quiero volver al formulario
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Boton para volver al menu principal -->
+        <button type="button" id="back" class="button" onclick="location.href='/'">Volver al menú principal</button>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/validacion_artesano.js') }}"></script>
+{% endblock %}
+
