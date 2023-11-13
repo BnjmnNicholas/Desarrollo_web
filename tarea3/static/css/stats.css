@@ -1,4 +1,4 @@
-  h1,h2,h3,h4 {
+h1,h2,h3,h4 {
     text-align: center;
     /* cambiamos la fuente */
       font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -31,13 +31,10 @@
         background-color: #4bb4f8;
         border: none;
         color: white;
-        width: 25rem;
-        padding: 10px 20px;
+        width: 10rem;
         border-radius: 8px;
         text-align: center;
-        text-decoration: none;
-        display: block; 
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
         font-size: 16px;
     }
     

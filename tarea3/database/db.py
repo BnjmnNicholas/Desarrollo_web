@@ -313,6 +313,43 @@ def insert_hincha_deporte(hincha_id, deporte_id):
     conn.close()
     
     
+def get_artesanos_stats():
+    """
+    Se accede a la tabla artesano_tipo y se obtiene la cantidad de artesanos por tipo de artesanía.
+
+    """
+    conn = getConnection()
+    sql = "SELECT tipo_artesania_id, COUNT(*) FROM artesano_tipo GROUP BY tipo_artesania_id"
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    conn.commit()
+    stats = cursor.fetchall()
+    return stats
+
+def get_artesanos_stats_by_artesania(id_artesania):
+    """
+    retorna la cantidad de artesanos por artesanía.
+    """
+    conn = getConnection()
+    sql = "SELECT COUNT(*) FROM artesano_tipo WHERE tipo_artesania_id=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (id_artesania,))
+    conn.commit()
+    stats = cursor.fetchone()
+    return stats
+
+def get_hinchas_stats_by_deporte(id_deporte):
+    """
+    retorna la cantidad de hinchas por deporte.
+    """
+    conn = getConnection()
+    sql = "SELECT COUNT(*) FROM hincha_deporte WHERE deporte_id=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (id_deporte,))
+    conn.commit()
+    stats = cursor.fetchone()
+    return stats
+
   
 
 def create_register_without_image(id_artesano,
@@ -328,5 +365,6 @@ def create_register_without_image(id_artesano,
   
   # llamamos a la función insert_artesano_tipo para insertar un registro en la tabla artesano_tipo
   insert_artesano_tipo(id_artesano, tipo_artesania_id)
+  
   
   

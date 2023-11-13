@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request,  flash
+import random
+from flask import Flask, render_template, request,  flash, jsonify
+from flask_cors import cross_origin
 from database import db
 from val import vh, va # validadores va:validador artesano vh: validador hincha
 import json
@@ -693,10 +695,67 @@ def detalle_hincha(hincha_id):
     return render_template('detalle_hincha.html', hincha=diccionario_hincha)
 
 
-@app.route('/graficos', methods=['GET'])
-def graficos():
-    return render_template('graficos.html')
+@app.route('/artesanos_stats', methods=['GET'])
+def artesanos_stats():
+    return render_template('artesanos_stats.html')
 
+@app.route('/hinchas_stats', methods=['GET'])
+def hinchas_stats():
+    return render_template('hinchas_stats.html')
+
+@app.route("/get_stats_data_artesanos", methods=["GET"])
+@cross_origin(origin="localhost", supports_credentials=True)
+def get_stats_data_artesanos():
+    """
+    Esta función se encarga de obtener los datos para la gráfica de artesanos,
+    y los devuelve en formato JSON.
+    
+    La data corresponde al número de artesanos por artesania
+     
+    """
+    
+    # hacemos un for para cada artesania y agregamos el numero de artesanos
+    # que tienen esa artesania a una lista
+    data_artesanias = []
+    
+    for i in range(1,10):
+        data_artesania = db.get_artesanos_stats_by_artesania(i)
+        nombre_artesania = db.get_artesania_nombre(i)[0]
+        # pasamos el nombre a Mayuscula
+        nombre_artesania = nombre_artesania.upper()
+        data_artesanias.append([nombre_artesania, data_artesania[0]])  
         
+    return jsonify(data_artesanias) 
+
+@app.route("/get_stats_data_hinchas", methods=["GET"])
+@cross_origin(origin="localhost", supports_credentials=True)
+def get_stats_data_hinchas():
+    """
+    Esta función se encarga de obtener los datos para la gráfica de deportes,
+    y los devuelve en formato JSON.
+    
+    La data corresponde al número de deportes por hincha
+     
+    """
+    
+    # hacemos un for para cada deporte y agregamos el numero de hinchas
+    # que tienen ese deporte a una lista
+    data_deportes = []
+    
+    for i in range(1,60):
+        data_deporte = db.get_hinchas_stats_by_deporte(i)
+#        data_deporte = random.randint(0,100)                               # solo para probar
+        nombre_deporte = db.get_deporte_nombre(i)[0]
+        # pasamos el nombre a Mayuscula
+        nombre_deporte = nombre_deporte.upper()
+        if data_deporte[0] != 0:
+#        if data_deporte != 0:                                              # solo para probar
+            data_deportes.append([nombre_deporte, data_deporte[0]])
+#            data_deportes.append([nombre_deporte, data_deporte])           # solo para probar
+        
+
+    return jsonify(data_deportes)
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
