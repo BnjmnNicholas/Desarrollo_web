@@ -6,6 +6,6 @@ for (let i = 0; i < registros.length; i++) {
 
     console.log(hinchaId);
     registros[i].addEventListener("click", () => {
-        window.location.href = "/detalle_artesano/" + hinchaId;
+        window.location.href = "/detalle_hincha/" + hinchaId;
     });
 }

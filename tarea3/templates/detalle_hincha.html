@@ -1,42 +1,39 @@
 {% extends 'base.html' %}
-{% block title %} Artesanos registrados {% endblock %}
+{% block title %} Hincha {% endblock %}
 {% block css %} <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/informacion_artesano.css') }}"> {% endblock %}
 
 {% block title2 %}
-<h1>Artesanos registrados</h1>
+<h1>Detalle Hincha</h1>
 {% endblock %}
 
 {% block content %}
 
     <div class="container">
-        <!-- creamos la tabla con los registros de la lista_artesanos -->
-        {% if artesano %}
-        <table id="tabla-artesanos">
+        {% if hincha %}
+        <table id="tabla-hincha">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Region</th>
                     <th>Comuna</th>
-                    <th>Tipo Artesanías</th>
-                    <th>Fotos</th>
+                    <th>Deportes</th>
                 </tr>
             </thead>
             <tbody>
-                {% for artesano_id, artesano in artesano.items() %}
+                {% for hincha_id, hincha in hincha.items() %}
                 <tr>
-                    <td>{{ artesano['id'] }}</td>
-                    <td>{{ artesano['nombre'] }}</td>
-                    <td>{{ artesano['celular'] }}</td>
-                    <td>{{ artesano['comuna'] }}</td>
+                    <td>{{ hincha['id'] }}</td>
+                    <td>{{ hincha['nombre'] }}</td>
+                    <td>{{ hincha['celular'] }}</td>
+                    <td>{{ hincha['email'] }}</td>
+                    <td>{{ hincha['region'] }}</td>
+                    <td>{{ hincha['comuna'] }}</td>
                     <td>
-                        {% for artesania in artesano['lista_artesanias'] %}
-                            {{ artesania }}<br>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% for foto in artesano['lista_rutas_fotos'] %}
-                            <img src="../{{ foto }}"  alt="foto" width="640" height="480">
+                        {% for deporte in hincha['lista_deportes'] %}
+                            {{ deporte }}<br>
                         {% endfor %}
                     </td>
                 </tr>
@@ -44,7 +41,7 @@
             </tbody>
         </table>
         {% else %}
-        <h2>No hay artesanos registrados</h2>
+        <h2>No hay hinchas registrados</h2>
         {% endif %}
 
     </div>

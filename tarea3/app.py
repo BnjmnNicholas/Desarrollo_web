@@ -512,11 +512,6 @@ def listado_hinchas():
     
 
 # ------------------------------------------------------------------------------------------    
-@app.route('/detalle_hincha/<int:artesano_id>', methods=['GET'])
-def detalle_hincha(hincha_id):
-    render_template('detalle_hincha.html')
-    
-# ------------------------------------------------------------------------------------------    
 
 @app.route('/listado_artesanos', methods=['GET'])
 def listado_artesanos():
@@ -598,9 +593,7 @@ def detalle_artesano(artesano_id):
     # escapamos el input
     artesano_id = bleach.clean(str(artesano_id))
     artesano_id = int(artesano_id)
-    
-    print(artesano_id)
-    
+
     diccionario_artesano = {}
     
     data_artesano = db.get_artesano_by_id(artesano_id)
@@ -608,7 +601,13 @@ def detalle_artesano(artesano_id):
     
     # obtenemos los datos del artesano: Id, nombre, celular, comuna, tipos de artesanias y fotos.
     
-    comuna = db.get_comuna_nombre(data_artesano[3])
+    comuna = db.get_comuna_nombre(data_artesano[3])[0]
+    
+    region = db.get_region_nombre_by_comuna(data_artesano[3])[0]
+    
+    email = data_artesano[4]
+    
+    descripcion_artesanias = data_artesano[5]
     
     # a partir del id del artesano obtenemos sus tipos de artesanias
     artesanias_id = db.get_artesanias_artesano(artesano_id)
@@ -626,16 +625,77 @@ def detalle_artesano(artesano_id):
     rutas_fotos_list = []
     for ruta in rutas_fotos:
         rutas_fotos_list.append(ruta[0])
+        
+    region = db.get_region_nombre_by_comuna(data_artesano[3])[0]
+#    print('region: ',region)
     
     # agregamos los datos al diccionario de artesanos.
-    diccionario_artesano[artesano_id] = {'id': artesano_id,
+    diccionario_artesano[artesano_id] = {   'id': artesano_id,
                                             'nombre': data_artesano[1],
                                             'celular': data_artesano[2],
-                                            'comuna': comuna[0],
+                                            'email': email,
+                                            'region':region,
+                                            'comuna': comuna,
                                             'lista_artesanias': artesanias,
+                                            'descripcion_artesanias': descripcion_artesanias,
                                             'lista_rutas_fotos': rutas_fotos_list}
     
+    print(diccionario_artesano)
+    
     return render_template('detalle_artesano.html', artesano=diccionario_artesano)
+
+@app.route('/detalle_hincha/<int:hincha_id>', methods=['GET'])
+def detalle_hincha(hincha_id):
+    #artesano = db.get_artesano_by_id(artesano_id)  # Asume que tienes una función para obtener un artesano por su ID
+    #print(artesano_id)
+    
+    # escapamos el input
+    hincha_id = bleach.clean(str(hincha_id))
+    hincha_id = int(hincha_id)
+    
+    print(hincha_id)
+    
+    diccionario_hincha = {}
+    
+    data_hincha = db.get_hincha_by_id(hincha_id)
+    # SELECT SELECT id, nombre, email, celular, comuna_id, modo_transporte, comentarios
+    
+    # obtenemos los datos del hincha: id, nombre, celular, comuna_id, modo_transporte, comentarios
+    
+    email = data_hincha[2]
+    
+    comuna = db.get_comuna_nombre(data_hincha[4])[0]
+    
+    region = db.get_region_nombre_by_comuna(data_hincha[4])[0]
+    
+    # a partir del id del hincha obtenemos los id de los deportes
+    deportes_id = db.get_deportes_hincha(hincha_id)
+    
+    # a partir de deportes_id obtenemos los nombres de los deportes
+    deportes = []
+    for id in deportes_id:
+        deporte = db.get_deporte_nombre(id[0])
+        deportes.append(deporte[0])
+
+
+    
+    # agregamos los datos al diccionario de artesanos.
+    diccionario_hincha[hincha_id] = {   'id': hincha_id,
+                                        'nombre': data_hincha[1],
+                                        'celular': data_hincha[3],
+                                        'email': email,
+                                        'region': region,
+                                        'comuna': comuna,
+                                        'lista_deportes': deportes}
+    
+    print(diccionario_hincha)
+    
+    return render_template('detalle_hincha.html', hincha=diccionario_hincha)
+
+
+@app.route('/graficos', methods=['GET'])
+def graficos():
+    return render_template('graficos.html')
 
         
 if __name__ == '__main__':

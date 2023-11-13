@@ -82,12 +82,21 @@ def get_hinchas():
   
 def get_artesano_by_id(id):
     conn = getConnection()    
-    sql = "SELECT id, nombre, celular, comuna_id FROM artesano WHERE id=%s"
+    sql = "SELECT id, nombre, celular, comuna_id, email, descripcion_artesania FROM artesano WHERE id=%s"
     cursor = conn.cursor()
     cursor.execute(sql, (id,))
     conn.commit()
     artesano = cursor.fetchone()
     return artesano
+
+def get_hincha_by_id(id):
+    conn = getConnection()    
+    sql = "SELECT id, nombre, email, celular, comuna_id, modo_transporte, comentarios FROM hincha WHERE id=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (id,))
+    conn.commit()
+    hincha = cursor.fetchone()
+    return hincha
   
 def get_comuna_id(comuna):
     conn = getConnection()    
@@ -191,8 +200,6 @@ def get_deporte_nombre(id_deporte):
     deporte_nombre = cursor.fetchone()
     return deporte_nombre
 
-  
-  
 def get_comuna_nombre(comuna_id):
     conn = getConnection()
     sql = "SELECT nombre FROM comuna WHERE id=%s"
@@ -201,6 +208,20 @@ def get_comuna_nombre(comuna_id):
     conn.commit()
     comuna_nombre = cursor.fetchone()
     return comuna_nombre  
+
+def get_region_nombre_by_comuna(comuna_id):
+    conn = getConnection()
+    sql = "SELECT region_id FROM comuna WHERE id=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (comuna_id,))
+    conn.commit()
+    region_id = cursor.fetchone()
+    sql = "SELECT nombre FROM region WHERE id=%s"
+    cursor = conn.cursor()
+    cursor.execute(sql, (region_id,))
+    conn.commit()
+    region_nombre = cursor.fetchone()
+    return region_nombre
   
   
 def validador_bbdd_artesano(nombre, email, celular, comuna_id):

@@ -17,8 +17,11 @@
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Region</th>
                     <th>Comuna</th>
                     <th>Tipo Artesanías</th>
+                    <th>Descripción Artesanias</th>
                     <th>Fotos</th>
                 </tr>
             </thead>
@@ -28,12 +31,19 @@
                     <td>{{ artesano['id'] }}</td>
                     <td>{{ artesano['nombre'] }}</td>
                     <td>{{ artesano['celular'] }}</td>
+                    <td>{{ artesano['email'] }}</td>
+                    <td>{{ artesano['region'] }}</td>
                     <td>{{ artesano['comuna'] }}</td>
+            
                     <td>
                         {% for artesania in artesano['lista_artesanias'] %}
                             {{ artesania }}<br>
                         {% endfor %}
                     </td>
+                    <td>
+                        {% for descripcion in artesano['lista_descripciones'] %}
+                            {{ descripcion }}<br>
+                        {% endfor %}
                     <td>
                         {% for foto in artesano['lista_rutas_fotos'] %}
                             <img src="../{{ foto }}"  alt="foto" width="640" height="480">
